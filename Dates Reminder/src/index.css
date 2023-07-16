@@ -1,0 +1,24 @@
+:root {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Almarai',sans-serif;
+}
+
+*,*::before,*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.rectangle {
+  min-height: 600px;
+  box-shadow: 1px 4px 4px 1px rgba(85, 85, 85, 0.25);
+  border-radius: 15px;
+}
+
+.image-avatar {
+  border-radius: 50%;
+  width: 50px;
+}

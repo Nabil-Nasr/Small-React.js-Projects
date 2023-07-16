@@ -1,0 +1,41 @@
+:root {
+  scroll-behavior: smooth;
+  --toastify-font-family: 'Almarai',sans-serif;
+}
+
+body {
+  font-family: 'Almarai',sans-serif;
+  background-color: rgba(var(--bs-tertiary-bg-rgb));
+}
+
+*,*::before,*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.accordion-button::after {
+  margin-inline-start: auto;
+  margin-inline-end: 0;
+}
+
+.bg-hover:hover {
+  background-color: var(--bs-btn-hover-bg)!important;
+}
+
+.underline {
+  background-color: rgba(var(--bs-warning-rgb))!important;
+  width: 11rem;
+  margin-inline: auto;
+  height: 4px;
+}
+
+.food-image {
+  min-height: 10rem;
+  width: 15rem;
+  max-width: 40%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
