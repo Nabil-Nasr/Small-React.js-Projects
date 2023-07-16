@@ -1,13 +1,17 @@
 import { Card } from "react-bootstrap";
-import Fade  from "react-reveal/Fade";
+import {Fade} from "react-awesome-reveal";
+
+if (typeof window.IntersectionObserver === "undefined") {
+  await import("intersection-observer");
+}
 
 const MealList = ({ mealsData = [] }) =>
   (
     <div class="cards">
+      <Fade triggerOnce  direction="left">
       {
-        mealsData.map((meal,index) =>
-      <Fade key={meal.id} left={index%2===0} right={index%2!==0}>
-            <Card  className="flex-row mb-3 bg-body-tertiary  ">
+        mealsData.map(meal =>
+            <Card key={meal.id}  className="flex-row mb-3 bg-body-tertiary  ">
               <Card.Img className="food-image" src={meal.imagePath} />
               <Card.Body>
                 <div className="d-flex justify-content-between mb-2">
@@ -17,9 +21,9 @@ const MealList = ({ mealsData = [] }) =>
                 <Card.Text>{meal.description}</Card.Text>
               </Card.Body>
             </Card>
-      </Fade>
         )
       }
+      </Fade>
     </div>
   );
 

@@ -1,5 +1,5 @@
 import { Button, Col, Row } from "react-bootstrap";
-import Bounce from "react-reveal/Bounce";
+import {Bounce} from "react-awesome-reveal";
 
 const CategoryList = ({ categories = [], setMealsData, originalMeals = [] }) => {
 
@@ -26,7 +26,7 @@ const CategoryList = ({ categories = [], setMealsData, originalMeals = [] }) => 
   return (
     <Row>
       <Col sm="12" className="d-flex gap-3 justify-content-center mt-2 mb-5 flex-wrap ">
-        <Bounce right>
+        <Bounce triggerOnce direction="right">
           {
             categories.map((category, index) =>
               <Button key={index} data-category={category} onClick={filterByCategory} variant="outline-warning"
