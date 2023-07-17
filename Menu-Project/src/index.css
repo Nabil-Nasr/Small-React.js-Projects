@@ -31,11 +31,11 @@ body {
 }
 
 .food-image {
-  min-height: 10rem;
   width: 15rem;
   max-width: 40%;
   -o-object-fit: cover;
   object-fit: cover;
+  aspect-ratio: 3/2;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }

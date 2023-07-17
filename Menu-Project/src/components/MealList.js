@@ -8,7 +8,7 @@ if (typeof window.IntersectionObserver === "undefined") {
 const MealList = ({ mealsData = [] }) =>
   (
     <div class="cards">
-      <Fade triggerOnce  direction="left">
+      <Fade triggerOnce >
       {
         mealsData.map(meal =>
             <Card key={meal.id}  className="flex-row mb-3 bg-body-tertiary  ">
@@ -16,7 +16,7 @@ const MealList = ({ mealsData = [] }) =>
               <Card.Body>
                 <div className="d-flex justify-content-between mb-2">
                   <Card.Title>{meal.name}</Card.Title>
-                  <div className="text-danger  fw-bold">{meal.price} جنيه</div>
+                  <div className="text-danger text-center  fw-bold">{meal.price} جنيه</div>
                 </div>
                 <Card.Text>{meal.description}</Card.Text>
               </Card.Body>
