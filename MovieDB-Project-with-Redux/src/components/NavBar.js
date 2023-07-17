@@ -4,43 +4,40 @@ import logo from "../images/logo.svg";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { setSearchQuery } from "../redux/actions/movieActions";
 
 const NavBar = () => {
 
   const [searchParams, setSearchParams] = useSearchParams({});
 
-  const searchQuery = searchParams.get("query") || "";
-  const pageQuery = searchParams.get("page") || 1;
+  const searchQuery = searchParams.get("query")
+  const pageQuery = searchParams.get("page")
 
 
   const dispatch = useDispatch();
 
 
-  const searchForMovies = ({ target, initialParam }) => {
-    const query = target?.value ?? initialParam;
-
-    if (query) {
-      setSearchParams({ query: query, page: target?.value?1:pageQuery });
-    }
-    
+  const changeParams = ({ target}) => {
     if(window.location.pathname === "/"){
-      getMovies({ query, dispatch, page: pageQuery });
+      setSearchParams({ query:target.value, page:1 });
     }
-    
-    dispatch(setSearchQuery(query));
   };
+  
+  // search by params
+  const searchForMovies = ()=>{
+    if(window.location.pathname === "/"){
+      if(!pageQuery){
+        return setSearchParams({page:1})
+      }
+      dispatch(setSearchQuery(searchQuery))
+      getMovies({ query:searchQuery, dispatch, page:pageQuery??1});
+    }
+  }
 
   useEffect(() => {
-    searchForMovies({ initialParam: searchQuery });
-  }, [pageQuery]);
-
-
-  const initialSearchValue = useRef({value:""})
-  useEffect(()=>{
-    initialSearchValue.current.value = searchQuery
-  },[])
+    searchForMovies();
+  }, [searchParams]);
 
   return (
     <Navbar className="bg-custom-brown py-3 position-sticky top-0 z-1 shadow-sm ">
@@ -52,8 +49,8 @@ const NavBar = () => {
           placeholder="ابحث ..."
           className="ms-4"
           aria-label="ابحث"
-          onChange={searchForMovies}
-          ref={initialSearchValue}
+          onChange={changeParams}
+          value={searchQuery??""}
           />
 
       </Container>

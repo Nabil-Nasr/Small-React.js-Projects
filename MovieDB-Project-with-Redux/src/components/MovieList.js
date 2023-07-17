@@ -8,14 +8,18 @@ const MovieList = () => {
 
   const { page,results: movies ,total_pages:pageCount} = useSelector(({moviesData})=>moviesData)
 
-  const searchQuery = useSelector(({searchQuery})=>searchQuery)
-
   const [,setSearchParams] = useSearchParams({})
-
+  const searchQuery = useSelector(({searchQuery})=>searchQuery)
+  
   const handlePageChange = ({ selected }) => {
     // The selected is starting from 0
     const page = selected + 1;
-    setSearchParams({page,query:searchQuery})
+    if(searchQuery == null){
+      setSearchParams({page})
+    }else{
+      setSearchParams({page,query:searchQuery})
+    }
+
   };
 
   return (

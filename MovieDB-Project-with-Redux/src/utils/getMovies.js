@@ -1,7 +1,7 @@
 import axios from "axios";
 import { setMoviesData } from "../redux/actions/movieActions";
 
-const getMovies = async ({ dispatch, lang = "ar", category = "popular", page: currentPage = 1, apiKey = process.env.REACT_APP_API_KEY, query = "", moviesPerPage = 55 } = {}) => {
+const getMovies = async ({ dispatch, lang = "ar", category = "popular", page: currentPage = 1, apiKey = process.env.REACT_APP_API_KEY, query = "", moviesPerPage = 35 } = {}) => {
 
   // Number of movies per request is 20
   const numberOfRequests = Math.ceil(moviesPerPage / 20);
