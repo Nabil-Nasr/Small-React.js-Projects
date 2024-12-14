@@ -1,3 +1,4 @@
 const {QAData} = localStorage
-console.log(QAData);
-export const QA=QAData?Array.isArray(JSON.parse(QAData))?JSON.parse(QAData):[]:[]
+const QAArray = JSON.parse(QAData)
+console.log(QAData,QAArray);
+export const QA=QAData?Array.isArray(QAArray)?QAArray:[]:[]

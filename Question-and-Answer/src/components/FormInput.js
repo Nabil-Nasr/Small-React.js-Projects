@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import ActionMessageContainer, { notify } from "./ActionMessageContainer";
+import { notify } from "./ActionMessageContainer";
 
 
 
@@ -24,24 +24,22 @@ const FormInput = ({ QandAList = [], setQAData }) => {
 
     question.current.value = "";
     answer.current.value = "";
-
     notify("تم الإضافة بنجاح", "success");
   };
 
   return (
     <>
       <Row className="row-gap-2 mb-2">
-        <Col sm="5" >
+        <Col sm="5" className="pe-sm-1">
           <Form.Control type="text" ref={question} placeholder="أدخل السؤال" />
         </Col>
-        <Col sm="5">
+        <Col sm="5" className="ps-sm-1">
           <Form.Control type="text" ref={answer} placeholder="أدخل الإجابة" />
         </Col>
-        <Col sm="2">
-          <Button onClick={addQA}>إضافة</Button>
+        <Col sm="2" className="ps-sm-0"> 
+          <Button  onClick={addQA} variant="primary" className="w-100 m-0 ">إضافة</Button>
         </Col>
       </Row>
-      <ActionMessageContainer />
     </>
   );
 };

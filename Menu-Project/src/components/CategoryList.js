@@ -3,10 +3,10 @@ import {Bounce} from "react-awesome-reveal";
 
 const CategoryList = ({ categories = [], setMealsData, originalMeals = [] }) => {
 
-  const addActiveClass = (event) => {
+  const addActiveClass = (categoryButton) => {
     const activeButtons = document.querySelectorAll("[data-category]");
     activeButtons.forEach(button => button.classList.remove("active"));
-    event.target.classList.add("active");
+    categoryButton.classList.add("active");
   };
 
   const filterByCategory = (event) => {
@@ -19,7 +19,7 @@ const CategoryList = ({ categories = [], setMealsData, originalMeals = [] }) => 
       setMealsData(filteredMeals);
     }
 
-    addActiveClass(event);
+    addActiveClass(event.target);
   };
 
 

@@ -20,4 +20,5 @@ export const meals = [
   {id:14,name:"أجنحة مقلية5",category:"عشاء",price:50,description:"وصف الأجنحة المقلية كوكي وأطياب  وصف الأجنحة المقلية كوكي وأطياب  وصف الأجنحة المقلية كوكي وأطياب  ",imagePath:food3},
 ]
 
+
 export const categories =  ['الكل',...new Set(meals.map(meal=>meal.category))]

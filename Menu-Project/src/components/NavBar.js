@@ -1,28 +1,35 @@
-import {useRef} from 'react'
-import { Container, Navbar ,Nav, Form, Button} from "react-bootstrap";
+import { useRef } from 'react';
+import { Container, Navbar, Nav, Form } from "react-bootstrap";
 
 
 
-const NavBar = ({setMealsData,originalMeals=[]}) => {
+const NavBar = ({ setMealsData, originalMeals = [] }) => {
 
-  const searchValue = useRef(null)
+  const searchValue = useRef(null);
 
   const search = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const categoryButton = document.querySelector(`.active`)
-    categoryButton.click()
-    if (searchValue.current.value==="") return 
-    
-    const {category}=categoryButton.dataset
+    const categoryButton = document.querySelector(`.active`);
 
-    const filteredBySearch = originalMeals.filter(meal=>meal.name.includes(searchValue.current.value))
+    const { category } = categoryButton.dataset;
 
-    if(category === "الكل" || category.toLowerCase() === "all"){
-      setMealsData(filteredBySearch)
-    }else{
-      const filteredByCategory = filteredBySearch.filter(meal=>meal.category===category)
-      setMealsData(filteredByCategory)
+    if (searchValue.current.value === "") {
+      if (category === "الكل" || category.toLowerCase() === "all")
+        setMealsData(originalMeals);
+      else
+        setMealsData(originalMeals.filter(meal => meal.category === category));
+
+      return;
+    }
+
+
+    const filteredBySearch = originalMeals.filter(meal => meal.name.includes(searchValue.current.value));
+    if (category === "الكل" || category.toLowerCase() === "all") {
+      setMealsData(filteredBySearch);
+    } else {
+      const filteredByCategory = filteredBySearch.filter(meal => meal.category === category);
+      setMealsData(filteredByCategory);
     }
   };
 
@@ -38,21 +45,20 @@ const NavBar = ({setMealsData,originalMeals=[]}) => {
             navbarScroll
           >
           </Nav>
-          <Form className="d-flex">
+          <Form className="d-flex" onChange={search} onSubmit={search}>
             <Form.Control
               type="search"
               placeholder="ابحث ..."
-              className="me-2"
               aria-label="ابحث"
               ref={searchValue}
+              className="shadow-none border-warning"
             />
-            <Button onClick={search}  className="bg-body btn-outline-warning 
-            bg-hover">ابحث</Button>
+
           </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
-}
+};
 
 export default NavBar;

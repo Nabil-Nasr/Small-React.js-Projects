@@ -8,7 +8,7 @@ import { useState } from "react";
 
 
 const App = () => {
-  const [personsData, setPersonsData] = useState([]);
+  const [personsData, setPersonsData] = useState(persons);
   const deleteDates = () => setPersonsData([]);
   const showDates = () => setPersonsData(persons);
 

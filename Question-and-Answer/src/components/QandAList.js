@@ -1,5 +1,5 @@
-import { Accordion, Row } from "react-bootstrap";
-import ActionMessageContainer, { notify } from "./ActionMessageContainer";
+import { Accordion, Button, Row } from "react-bootstrap";
+import  { notify } from "./ActionMessageContainer";
 
 
 const QandAList = ({ QandAList = [],setQAData }) =>{
@@ -28,7 +28,7 @@ const QandAList = ({ QandAList = [],setQAData }) =>{
                 <Accordion.Header>{QandA.question}</Accordion.Header>
                 <Accordion.Body>
                   {QandA.answer}
-                  <button className="btn btn-danger me-1 py-1" onClick={deleteQA(QandA.id)}>إزالة</button>
+                  <Button variant="danger" className="me-1 py-1" onClick={deleteQA(QandA.id)}>إزالة</Button>
                 </Accordion.Body>
               </Accordion.Item>
             )
@@ -36,9 +36,9 @@ const QandAList = ({ QandAList = [],setQAData }) =>{
         </Accordion>
       </Row>
       {QandAList.length ? 
-      <button onClick={deleteQAs} className="btn btn-danger w-100 mt-2">إزالة الكل</button> :
+      <Button onClick={deleteQAs} variant="danger" className="w-100 mt-2">إزالة الكل</Button> :
       <h2 className="text-center my-2">لا يوجد أسئلة</h2>}
-      <ActionMessageContainer/>
+      
     </>
   )
 
