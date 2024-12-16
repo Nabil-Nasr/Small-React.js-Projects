@@ -7,11 +7,11 @@ const NavBar = ({ setMoviesData, setSearchQuery }) => {
 
   const navigate = useNavigate();
 
-  const searchForMovies = event => {
-    navigate('/',{replace:true});
+  const searchForMovies = async event => {
+    navigate('/');
     const query = event.target.value;
-    getMovies({ query, setMoviesData });
     setSearchQuery(query);
+    setMoviesData(await getMovies({ query }));
   };
 
   return (
@@ -24,7 +24,7 @@ const NavBar = ({ setMoviesData, setSearchQuery }) => {
           placeholder="ابحث ..."
           className="ms-4"
           aria-label="ابحث"
-          onInput={searchForMovies}
+          onChange={searchForMovies}
         />
 
       </Container>

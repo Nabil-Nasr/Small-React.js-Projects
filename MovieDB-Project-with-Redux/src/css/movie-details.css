@@ -1,7 +1,7 @@
 .poster {
   display: block;
   margin-inline: auto;
-  max-height: max(350px,50vh);
+  max-height: max(350px, 50vh);
   aspect-ratio: 2/3;
   -o-object-fit: cover;
   object-fit: cover;

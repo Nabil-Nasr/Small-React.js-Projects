@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getMovies = async ({ setMoviesData, lang = "ar", category = "popular", page: currentPage = 1, apiKey = process.env.REACT_APP_API_KEY, query = "", moviesPerPage = 80 } = {}) => {
+const getMovies = async ({ lang = "ar", category = "popular", page: currentPage = 1, apiKey = process.env.REACT_APP_API_KEY, query = "", moviesPerPage = 80 } = {}) => {
 
   // Number of movies per request is 20
   const numberOfRequests = Math.ceil(moviesPerPage / 20);
@@ -11,12 +11,12 @@ const getMovies = async ({ setMoviesData, lang = "ar", category = "popular", pag
 
     let url;
     if (query) {
-      url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&language=${lang}&page=${page}`;
+      url = `https://api.themoviedb.org/3/search/movie`;
     } else {
-      url = `https://api.themoviedb.org/3/movie/${category}?api_key=${apiKey}&language=${lang}&page=${page}`;
+      url = `https://api.themoviedb.org/3/movie/${category}`;
     }
 
-    const { data: { page: currentPage, results, total_pages, total_results } } = await axios.get(url);
+    const { data: { page: currentPage, results, total_pages, total_results } } = await axios.get(url,{params:{api_key:apiKey,language:lang,query,page}});
 
     moviesData.results = moviesData.results.concat(results);
 
@@ -25,12 +25,12 @@ const getMovies = async ({ setMoviesData, lang = "ar", category = "popular", pag
     moviesData.total_results = total_results;
     
   }
-
-  if (moviesData.total_pages > Math.floor(500 / numberOfRequests)) {
-    moviesData.total_pages = Math.floor(500 / numberOfRequests);
+  const realTotalPages = Math.floor(500 / numberOfRequests);
+  if (moviesData.total_pages > realTotalPages) {
+    moviesData.total_pages = realTotalPages;
   }
 
-  setMoviesData(moviesData);
+  return moviesData
 };
 
 export default getMovies;

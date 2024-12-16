@@ -8,8 +8,10 @@ const MovieList = ({ moviesData = {}, setMoviesData, searchQuery }) => {
   const { page, results: movies, total_pages: totalPages } = moviesData;
 
   useEffect(() => {
-    getMovies({ setMoviesData });
-  }, []);
+    (async()=>{
+      setMoviesData(await getMovies());
+    })()
+  }, [setMoviesData]);
 
   return (
     <>
@@ -21,7 +23,7 @@ const MovieList = ({ moviesData = {}, setMoviesData, searchQuery }) => {
         }
       </Row>
 
-      <Pagination pageCount={movies && movies.length ? totalPages : 0} searchQuery={searchQuery} setMoviesData={setMoviesData} currentPage={page} />
+      <Pagination pageCount={totalPages} searchQuery={searchQuery} setMoviesData={setMoviesData} currentPage={page} />
     </>
   );
 };

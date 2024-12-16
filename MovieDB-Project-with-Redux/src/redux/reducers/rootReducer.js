@@ -1,10 +1,8 @@
 import { combineReducers } from "redux";
 import moviesDataReducer from "./moviesDataReducer";
-import searchQueryReducer from "./searchQueryReducer";
 
 const rootReducer = combineReducers({
-  moviesData:moviesDataReducer,
-  searchQuery:searchQueryReducer
-})
+  moviesData: moviesDataReducer,
+});
 
-export default rootReducer
+export default rootReducer;

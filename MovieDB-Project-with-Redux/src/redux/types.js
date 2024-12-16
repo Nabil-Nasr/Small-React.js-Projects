@@ -1,6 +1,5 @@
 const types = {
-  setSearchQuery:"setSearchQuery",
-  setMoviesData:"setMoviesData"
-}
+  setMoviesData: "setMoviesData"
+};
 
-export default types
+export default types;

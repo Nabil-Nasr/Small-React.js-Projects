@@ -8,16 +8,16 @@ import MovieDetails from "./components/MovieDetails";
 
 const App = () => {
 
-  const [moviesDataState, setMoviesDataState] = useState({});
-  const [searchQueryState, setSearchQueryState] = useState("");
+  const [moviesData, setMoviesData] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <>
       <BrowserRouter>
-        <NavBar setMoviesData={setMoviesDataState} setSearchQuery={setSearchQueryState} />
+        <NavBar setMoviesData={setMoviesData} setSearchQuery={setSearchQuery} />
         <Container>
           <Routes>
-            <Route path="/" element={<MovieList moviesData={moviesDataState} setMoviesData={setMoviesDataState} searchQuery={searchQueryState} />} />
+            <Route path="/" element={<MovieList moviesData={moviesData} setMoviesData={setMoviesData} searchQuery={searchQuery} />} />
             <Route path="/movie/:id" element={<MovieDetails />} />
           </Routes>
         </Container>

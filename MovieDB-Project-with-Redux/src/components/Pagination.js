@@ -1,6 +1,17 @@
 import ReactPaginate from "react-paginate";
+import { useSearchParams } from "react-router-dom";
 
-const Pagination = ({handlePageChange,pageCount,currentPage}) => {
+const Pagination = ({ pageCount, currentPage }) => {
+  const [, setSearchParams] = useSearchParams({});
+  const handlePageChange = ({ selected }) => {
+    // The selected is starting from 0
+    const page = selected + 1;
+    setSearchParams(prevSearchParams => {
+      prevSearchParams.set("page", page);
+      return prevSearchParams;
+    });
+
+  };
   return (
     <ReactPaginate
       breakLabel="..."
@@ -22,7 +33,13 @@ const Pagination = ({handlePageChange,pageCount,currentPage}) => {
       breakClassName="page-item"
       breakLinkClassName="page-link"
       disabledClassName="disabled"
-      forcePage={isNaN(currentPage-1)?-1:currentPage-1}
+      forcePage={
+        // conditions to handle warnings of pageCount and forcePage
+        !currentPage
+          || currentPage > pageCount
+          || (currentPage === 1 && pageCount <= 1)
+          ? -1
+          : currentPage - 1}
     />
   );
 };

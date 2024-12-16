@@ -3,42 +3,52 @@ import getMovies from "../utils/getMovies";
 import logo from "../images/logo.svg";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import { setSearchQuery } from "../redux/actions/movieActions";
+import useSearchNavigate from "../hooks/useSearchNavigate";
+import useDebouncedSearchParams from "../hooks/useDebouncedSearchParams";
 
 const NavBar = () => {
 
-  const [searchParams, setSearchParams] = useSearchParams({});
+  const searchNavigate = useSearchNavigate({ delay: 250 });
+  const [searchParams, setSearchParams] = useDebouncedSearchParams({}, 1000);
 
-  const searchQuery = searchParams.get("query")
-  const pageQuery = searchParams.get("page")
-
+  const searchQuery = searchParams.get("query");
 
   const dispatch = useDispatch();
 
 
-  const changeParams = ({ target}) => {
-    if(window.location.pathname === "/"){
-      setSearchParams({ query:target.value, page:1 });
+  const changeParams = ({ target }) => {
+    const query = target.value;
+    if (window.location.pathname === "/") {
+      setSearchParams(prevSearchParams => {
+        prevSearchParams.delete("page");
+        if (query === "")
+          prevSearchParams.delete("query");
+        else
+          prevSearchParams.set("query", query);
+        return prevSearchParams;
+      });
+    } else {
+      searchNavigate({ pathname: "/", searchParams: { query } });
     }
   };
-  
+
   // search by params
-  const searchForMovies = ()=>{
-    if(window.location.pathname === "/"){
-      if(!pageQuery){
-        return setSearchParams({page:1})
-      }
-      dispatch(setSearchQuery(searchQuery))
-      getMovies({ query:searchQuery, dispatch, page:pageQuery??1});
+  const searchForMovies = ({ signal }) => {
+    const pageQuery = searchParams.get("page");
+    // The condition for not searching for movies when the route is 404 or any other page like movie details page
+    if (window.location.pathname === "/") {
+      getMovies({ query: searchQuery, dispatch, page: pageQuery || 1, signal });
     }
-  }
+  };
 
   useEffect(() => {
-    searchForMovies();
+    const controller = new AbortController();
+    searchForMovies({ signal: controller.signal });
+    return () => {
+      controller.abort();
+    };
   }, [searchParams]);
-
   return (
     <Navbar className="bg-custom-brown py-3 position-sticky top-0 z-1 shadow-sm ">
       <Container >
@@ -50,8 +60,9 @@ const NavBar = () => {
           className="ms-4"
           aria-label="ابحث"
           onChange={changeParams}
-          value={searchQuery??""}
-          />
+          onKeyDown={event => event.key === "Enter" && changeParams(event)}
+          defaultValue={window.location.pathname === "/" ? searchQuery : null}
+        />
 
       </Container>
     </Navbar>

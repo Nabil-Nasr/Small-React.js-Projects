@@ -7,17 +7,15 @@ import MovieDetails from "./components/MovieDetails";
 
 const App = () => {
   return (
-    <>
-      <BrowserRouter>
-        <NavBar />
-        <Container>
-          <Routes>
-            <Route path="/" element={<MovieList />} />
-            <Route path="/movie/:id" element={<MovieDetails />} />
-          </Routes>
-        </Container>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <NavBar />
+      <Container>
+        <Routes>
+          <Route path="/" element={<MovieList />} />
+          <Route path="/movie/:id" element={<MovieDetails />} />
+        </Routes>
+      </Container>
+    </BrowserRouter>
   );
 };
 
